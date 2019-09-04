@@ -8,7 +8,7 @@
     <ui:define name="body">
         <style>
             .aberta{
-                background-color: #FFFF00;
+                background-color: khaki;
                 color: black;
             }
             .pago{
@@ -119,46 +119,45 @@
                     </p:toolbar>
 
                     <!-- <p:separator/>-->
-                    <p:dataTable id="tbParcelas" emptyMessage="Nenhum registro encontrado"
+                    <p:dataTable id="tbParcelas" emptyMessage="Nenhum registro encontrado" reflow="true"
                                  var="parcela" value="#{parcelaBean.listaParcelas}" paginator="true"
                                  rowStyleClass="#{parcela.situacao.nome == 'PAGO'? 'pago':
                                                   parcela.situacao.nome == 'EM ABERTO'? 'aberta': null}">
 
 
-                        <p:column headerText="Data Vencimento" filterBy="#{parcela.data}" sortBy="#{parcela.data}"
-                                  style="width: 10%; text-align: center">
+                        <p:column headerText="Vencimento" filterBy="#{parcela.data}" sortBy="#{parcela.data}">
                             <h:outputText value="#{parcela.dataFormatada}"/>
                         </p:column>
                        <!-- <p:column headerText="Cartão" style="width: 13%">
                             <h:outputText value="#{parcela.divida.cartao.nome}"/>
                         </p:column> -->
 
-                        <p:column headerText="Parcela" style="width: 7%; text-align: center">
+                        <p:column headerText="Parcela">
                             <h:outputText value="#{parcela.numero}/#{parcela.divida.quantParcela}"/>
                         </p:column>
 
-                        <p:column headerText="Valor" style="width: 8%">
+                        <p:column headerText="Valor">
                             <h:outputText value="#{parcela.valor}"/>
                         </p:column>
 
-                        <p:column headerText="Local" style="width: 15%" filterMatchMode="contains"
+                        <p:column headerText="Local"  filterMatchMode="contains"
                                   sortBy="#{parcela.divida.local}" filterBy="#{parcela.divida.local}">
                             <h:outputText value="#{parcela.divida.local}"/>
                         </p:column>
 
-                        <p:column headerText="Descrição" style="width: 18%" sortBy="#{parcela.divida.descricao}"
+                        <p:column headerText="Descrição" sortBy="#{parcela.divida.descricao}"
                         filterBy="#{parcela.divida.descricao}" filterMatchMode="contains">
                             <h:outputText value="#{parcela.divida.descricao}"/>
                         </p:column>
 
-                        <p:column headerText="Devedor" style="width: 9%">
+                        <p:column headerText="Devedor">
                             <h:outputText value="#{parcela.divida.pessoa.nome}"/>
                         </p:column>
 
                        <!-- <p:column headerText="Situação" style="width: 9%">
                             <h:outputText styleClass="situacao" value="#{parcela.situacao.nome}"/>
                         </p:column>-->
-                        <p:column  headerText="Pagar" style="color: red; text-align: center;width: 10%" rendered="#{sessionMB.usuarioLogado.id == 1}">
+                        <p:column  headerText="Pagar" style="color: red; text-align: center" rendered="#{sessionMB.usuarioLogado.id == 1}">
                             <p:commandButton id="pagar" value="PAGAR" style="text-align: center" styleClass="btn-primary"
                                              rendered="#{parcela.situacao.id == 1}"
                                              update="form" process="@this, tbParcelas, form" action="#{parcelaBean.pagarParcela}">

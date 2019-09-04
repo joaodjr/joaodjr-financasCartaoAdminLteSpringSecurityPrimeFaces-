@@ -141,55 +141,55 @@
                     </p:toolbar>
 
                     <p:dataTable id="tblDividas" emptyMessage="Nenhum registro encontrado"
-                                 value="#{dividaBean.listaDividaLazy}" lazy="true"
+                                 value="#{dividaBean.listaDividaLazy}" lazy="true" reflow="true"
                                  var="divida" rows="5" paginator="true" rowsPerPageTemplate="5,10,15,20" >
 
 
-                        <p:column headerText="Data da Compra" style="text-align: center">
+                        <p:column headerText="Data Compra">
                             <h:outputText value="#{divida.dataFormatada}"/>
                         </p:column>
 
-                        <p:column headerText="Cartão" filterBy="#{divida.cartao.nome}" width="15%"
+                        <p:column headerText="Cartão" filterBy="#{divida.cartao.nome}"
                                   filterMatchMode="contains" sortBy="#{divida.cartao.nome}">
                             <h:outputText value="#{divida.cartao.nome}"/>
                         </p:column>
 
-                        <p:column headerText="Inicio do Pagamento" width="9%;" style="text-align: center">
+                        <p:column headerText="1ª Parcela" >
                             <h:outputText value="#{divida.dataInicioFormatada}"/>
                         </p:column>
 
-                        <p:column headerText="Valor" style="width: 6%;text-align: center">
+                        <p:column headerText="Valor" >
                             <h:outputText value="#{divida.valorTotal}"/>
                         </p:column>
 
-                        <p:column headerText="Quant Parcela" style="width: 6%;text-align: center">
+                        <p:column headerText="Quant Parcela" >
                             <h:outputText value="#{divida.quantParcela}"/>
                         </p:column>
 
-                        <p:column headerText="Local" filterBy="#{divida.local}" style="width: 15%"
+                        <p:column headerText="Local" filterBy="#{divida.local}"
                                   filterMatchMode="contains">
                             <h:outputText value="#{divida.local}"/>
                         </p:column>
 
-                        <p:column headerText="Descricao" filterBy="#{divida.descricao}" style="width: 15%"
+                        <p:column headerText="Descricao" filterBy="#{divida.descricao}"
                                   filterMatchMode="contains">
                             <h:outputText value="#{divida.descricao}"/>
                         </p:column>
 
 
-                        <p:column headerText="Pessoa" width="9%"
+                        <p:column headerText="Pessoa"
                                   filterBy="#{divida.pessoa.nome}" filterMatchMode="contains" sortBy="#{divida.pessoa.nome}">
                             <h:outputText value="#{divida.pessoa.nome}"/>
                         </p:column>
 
-                        <p:column headerText="Opcões" exportable="false" width="12%" style="text-align: center">
-                            <p:commandButton value="EDITAR" process="@this" style="width: 80%" update="form"
+                        <p:column headerText="Opcões" exportable="false" style="text-align: center">
+                            <p:commandButton value="EDITAR" process="@this"  update="form"
                                              icon="fa fa-pencil" styleClass="btn-info">
                                 <f:setPropertyActionListener value="#{divida}" target="#{dividaBean.divida}"/>
                             </p:commandButton>
 
                             <p:commandButton value="EXCLUIR" action="#{dividaBean.excluir}" icon="fa fa-trash"
-                                             style="width: 80%" styleClass="btn-danger" process="@this" update="form">
+                                              styleClass="btn-danger" process="@this" update="form">
                                 <f:setPropertyActionListener value="#{divida}" target="#{dividaBean.divida}"/>
                             </p:commandButton>
                         </p:column>
