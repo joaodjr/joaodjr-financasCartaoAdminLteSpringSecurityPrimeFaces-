@@ -1,1 +1,1 @@
-web: java -jar target/financas.jar
+web: java $JAVA_OPTS -Dserver.port=$PORT -cp target/classes/:target/dependency
