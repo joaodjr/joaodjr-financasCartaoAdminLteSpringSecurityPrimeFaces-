@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="/WEB-INF/templates/template.xhtml">
+    
+     <ui:define name="body">
+         <style type="text/css">
+             .desativada{
+                 background-color: red;
+                 color: white;
+             }
+             .ui-datatable-header{
+                 background-color: blue;
+                 color: white;
+             }
+         </style>
+         
+         <h:form id="form">
+             <p:toolbar>
+                 <f:facet name="left">
+                     <h:outputText value="Usuários"/>
+                 </f:facet>
+             </p:toolbar>
+          <h:panelGroup id="cadastro" styleClass="ui-panelgrid-blank lesspad" rendered="#{usuarioBean.novo}">
+              <p:panelGrid columns="4" layout="grid" columnClasses="ui-grid-col-3, ui-grid-col-3, ui-grid-col-3, ui-grid-col-3" >
+                  <p:column>
+                      <p:outputLabel for="nome" value="Nome"/>
+                      <p:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="* O nome é obrigatório" style="width: 100%"/>
+                  </p:column>
+                  <p:column>
+                      <p:outputLabel for="senha" value="Senha"/>
+                      <p:password  id="senha" feedback="true"
+                                   promptLabel="Digite a senha" weakLabel="Força da senha : Fraca"
+                                   goodLabel="Força da senha : Média" strongLabel="Força da senha : Forte"  value="#{usuarioBean.usuario.senha}" required="true" requiredMessage="* O nome é obrigatório" style="width: 100%"/>
+                  </p:column>
+                  <p:column>
+                      <p:outputLabel for="pessoa" value="Pessoa" />
+                  <p:selectOneMenu id="pessoa" value="#{usuarioBean.usuario.pessoa}" converter="entityConverter"
+                  required="true" requiredMessage="A pessoa é obrigatório">
+                      <p:messages/>
+                      <f:selectItem noSelectionOption="false"/>
+                      <f:selectItems value="#{usuarioBean.listaPessoas}" var="pessoa" itemLabel="#{pessoa.nome}" itemValue="#{pessoa}"/>
+                  </p:selectOneMenu>
+                  </p:column>
+                  <p:column>
+                      <p:outputLabel for="perfilUsuario" value="Perfil Usuário"/>
+                      <p:selectOneMenu id="perfilUsuario" value="#{usuarioBean.usuario.perfilUsuario}" converter="entityConverter" required="true"
+                      requiredMessage="O perfil do usuário é obrigatório">
+                          <f:selectItem noSelectionOption="false"/>
+                          <f:selectItems value="#{usuarioBean.listaPerfilUsuario}" var="perfilUsuario" itemValue="#{perfilUsuario}"
+                                         itemLabel="#{perfilUsuario.nome}"/>
+                      </p:selectOneMenu>
+                  </p:column>
+                  <p:fileUpload mode="simple" skinSimple="true" value="#{usuarioBean.imagem}" label="ESCOLHER FOTO" styleClass="btn-info"/>
+              </p:panelGrid>
+              <p:panelGrid columns="8" layout="grid">
+
+                  <p:commandButton value="SALVAR" styleClass="btn-primary" style="width: 120px" process="@this, form" ajax="false"
+                                   update="form" action="#{usuarioBean.salvar}" icon="fa fa-floppy-o"/>
+                  <p:commandButton value="CANCELAR" styleClass="btn-info" style="width: 120px" process="@this"
+                                   update="form, cadastro" icon="fa fa-ban" actionListener="#{usuarioBean.cancelar}"/>
+              </p:panelGrid>
+          </h:panelGroup>
+             <p:dataTable emptyMessage="Nenhum registro encontrado" id="tabela"
+                          value="#{usuarioBean.listaUsuarios}" draggableColumns="true"
+                          var="usuario" rows="10" paginator="true" rowStyleClass="#{usuario.ativo == 0? 'desativada':null}">
+                 <f:facet name="header" >
+                     <p:commandButton icon="fa fa-plus" styleClass="btn-primary" style="width: 120px" value="NOVO"
+                                      actionListener="#{usuarioBean.novoUsuario}" process="@this" update="form"/>
+                 </f:facet>
+
+                 <p:column headerText="Nome" filterBy="#{usuario.nome}" sortBy="#{usuario.nome}">
+                     <h:outputText value="#{usuario.nome}"  />
+                 </p:column>
+                 <p:column headerText="Situação">
+                     <p:outputLabel value="#{usuario.ativo == 1? 'ATIVA':'DESATIVADA'}"/>
+                 </p:column>
+                 <p:column headerText="Perfil" filterBy="#{usuario.perfilUsuario.nome}" sortBy="#{usuario.perfilUsuario.nome}">
+                     <h:outputText value="#{usuario.perfilUsuario.nome}"  />
+                 </p:column>
+                 <p:column headerText="Opcões">
+                    <p:commandButton value="EDITAR" process="@this, tabela" update="form" action="#{usuarioBean.novoUsuario}"
+                                     styleClass="btn-info" style="width: 150px" icon="fa fa-pencil">
+                        <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}"/>
+                    </p:commandButton>
+                     <p:commandButton value="DESATIVAR" process="@this, tabela" update="form" action="#{usuarioBean.desativa}"
+                        styleClass="btn-danger" style="width: 150px" icon="fa fa-trash" rendered="#{usuario.ativo == 1}">
+                         <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}"/>
+                     </p:commandButton>
+                     <p:commandButton value="ATIVAR" process="@this, tabela" update="form" action="#{usuarioBean.salvar}"
+                      styleClass="btn-primary" style="width: 150px" icon="fa fa-floppy-o" rendered="#{usuario.ativo == 0}">
+                         <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}"/>
+                     </p:commandButton>
+                 </p:column>
+             </p:dataTable> 
+         </h:form>
+     </ui:define>
+</ui:composition>
