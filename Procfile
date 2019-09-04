@@ -1,1 +1,1 @@
-web: java -jar target/financascartao.jar
+web: java -jar target/financas.jar
