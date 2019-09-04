@@ -6,7 +6,7 @@
     <groupId>conecta</groupId>
     <artifactId>financas</artifactId>
     <version>0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>financas</name>
 
 
