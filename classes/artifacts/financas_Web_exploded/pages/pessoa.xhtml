@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="/WEB-INF/templates/template.xhtml">
+    
+     <ui:define name="body">
+         <style type="text/css">
+             .desativada{
+                 background-color: red;
+                 color: white;
+             }
+             .ui-datatable-header{
+                 background-color: blue;
+                 color: white;
+             }
+         </style>
+         
+         <h:form id="form">
+             <p:toolbar>
+                 <f:facet name="left">
+                     <h:outputText value="Pessoas"/>
+                 </f:facet>
+             </p:toolbar>
+          <h:panelGroup id="cadastro" styleClass="ui-panelgrid-blank lesspad" rendered="#{pessoaBean.novo}">
+              <p:panelGrid columns="4" layout="grid" columnClasses="ui-grid-col-3">
+                  <p:column>
+                      <p:outputLabel for="nome" value="Nome"/>
+                      <p:inputText id="nome" value="#{pessoaBean.pessoa.nome}" required="true" requiredMessage="* O nome é obrigatório"/>
+                  </p:column>
+              </p:panelGrid>
+              <p:panelGrid columns="8" layout="grid">
+                  <p:commandButton value="SALVAR" styleClass="btn-primary" style="width: 120px" process="@this, form"
+                                   update="form" actionListener="#{pessoaBean.salvar}" icon="fa fa-floppy-o"/>
+                  <p:commandButton value="CANCELAR" styleClass="btn-info" style="width: 120px" process="@this"
+                                   update="form, cadastro" icon="fa fa-ban" actionListener="#{pessoaBean.cancela}"/>
+              </p:panelGrid>
+          </h:panelGroup>
+             <p:dataTable emptyMessage="Nenhum registro encontrado" id="tabela"
+                          value="#{pessoaBean.listaPessoa}" draggableColumns="true"
+                          var="pessoa" rows="10" paginator="true" rowStyleClass="#{pessoa.ativa == 0? 'desativada':null}">
+                 <f:facet name="header" >
+                     <p:commandButton icon="fa fa-plus" styleClass="btn-primary" style="width: 120px" value="NOVO" rendered="#{!pessoaBean.novo}"
+                                      actionListener="#{pessoaBean.novoCadastro}" process="@this" update="form"/>
+                 </f:facet>
+
+                 <p:column headerText="Nome" filterBy="#{pessoa.nome}" sortBy="#{pessoa.nome}">
+                     <h:outputText value="#{pessoa.nome}"  /> 
+                 </p:column>
+                 <p:column headerText="Situação">
+                     <p:outputLabel value="#{pessoa.ativa == 1? 'ATIVA':'DESATIVADA'}"/>
+                 </p:column>
+                 <p:column headerText="Opcões">
+                    <p:commandButton value="EDITAR" process="@this, tabela" update="form" action="#{pessoaBean.novoCadastro}"
+                                     styleClass="btn-info" style="width: 150px" icon="fa fa-pencil">
+                        <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
+                    </p:commandButton>
+                     <p:commandButton value="DESATIVAR" process="@this, tabela" update="form" action="#{pessoaBean.desativa}"
+                        styleClass="btn-danger" style="width: 150px" icon="fa fa-trash" rendered="#{pessoa.ativa == 1}">
+                         <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
+                     </p:commandButton>
+                     <p:commandButton value="ATIVAR" process="@this, tabela" update="form" action="#{pessoaBean.salvar}"
+                      styleClass="btn-primary" style="width: 150px" icon="fa fa-floppy-o" rendered="#{pessoa.ativa == 0}">
+                         <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
+                     </p:commandButton>
+                 </p:column>
+             </p:dataTable> 
+         </h:form>
+     </ui:define>
+</ui:composition>

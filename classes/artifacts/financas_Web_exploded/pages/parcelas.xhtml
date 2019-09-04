@@ -1,0 +1,183 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="body">
+        <style>
+            .aberta{
+                background-color: #FFFF00;
+                color: black;
+            }
+            .pago{
+                background-color: #00FFFF;
+                color: black;
+            }
+            .atraso{ background-color:#FF4438 ;
+            color: black}
+
+        </style>
+        <script type="application/javascript">
+            PrimeFaces.locales['pt'] = {
+                closeText: 'Fechar',
+                prevText: 'Anterior',
+                nextText: 'Próximo',
+                currentText: 'Começo',
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+                    'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+                    'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+                    'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+                    'Sexta', 'Sábado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Só Horas',
+                timeText: 'Tempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                ampm: false,
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                allDayText: 'Todo o Dia'
+            };
+        </script>
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <h:form id="form">
+                    <div class="card card-w-title">
+                        <p:toolbar>
+                            <f:facet name="left">
+                                <h4><h:outputText value="BUSCA DE PARCELAS" style="color: red"/></h4>
+                            </f:facet>
+                        </p:toolbar>
+
+                        <p:panelGrid columns="5"
+                                     columnClasses="ui-grid-col-1.5,ui-grid-col-1.5, ui-grid-col-3, ui-grid-col-3, ui-grid-col-3"
+                                     layout="grid" id="pnBusca" styleClass="ui-panelgrid-blank lesspad">
+
+                            <p:column>
+                                <p:outputLabel value="Data Inicio" for="dataInicio" />
+                                <p:calendar pattern="dd/MM/yyyy" locale="pt"
+                                            mask="99/99/9999"  id="dataInicio"
+                                            value="#{parcelaBean.dataInicio}"/>
+                            </p:column>
+                           <p:column >
+                                <p:outputLabel  value="Data Fim" for="dataFim" style="size: 20px"/>
+                                <p:calendar pattern="dd/MM/yyyy" locale="pt" mask="99/99/9999" id="dataFim"
+                                            value="#{parcelaBean.dataFim}" />
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="Situação" for="sit"/>
+                                <p:selectOneMenu id="sit" value="#{parcelaBean.situacao}" converter="situacaoConverter" style="size: 20px" autoWidth="true">
+                                    <f:selectItem noSelectionOption="false" />
+                                    <f:selectItems value="#{parcelaBean.listaSituacao}" var="situacao"
+                                                   itemValue="#{situacao}" itemLabel="#{situacao.nome}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="Cartão" for="card"/>
+                                <p:selectOneMenu id="card" value="#{parcelaBean.cartao}" converter="cartaoConverter" style="size: 20px" autoWidth="true">
+                                    <f:selectItem noSelectionOption="false"/>
+                                    <f:selectItems value="#{parcelaBean.listaCartoes}" var="cartao"
+                                                   itemValue="#{cartao}" itemLabel="#{cartao.nome}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column >
+                                <p:outputLabel value="Pessoa" for="pes"/>
+                                <p:selectOneMenu id="pes" value="#{parcelaBean.pessoa}" style="size: 20px"
+                                                 converter="pessoaConverter" disabled="#{sessionMB.usuarioLogado.perfilUsuario.id == 2}" autoWidth="true">
+                                    <f:selectItem noSelectionOption="false"/>
+                                    <f:selectItems value="#{parcelaBean.listaPessoas}" var="pessoa"
+                                                   itemValue="#{pessoa}" itemLabel="#{pessoa.nome}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:panelGrid>
+                        <!-- <p:spacer width="30" height="10" />-->
+
+                        <p:panelGrid columns="6" layout="grid" columnClasses="ui-grid-col-2" >
+                            <p:commandButton value="Buscar" actionListener="#{parcelaBean.buscaParcelas}"
+                                             process="@this, pnBusca" update="form" styleClass="btn-primary"/>
+                        </p:panelGrid>
+
+
+                    </div>
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <h4><h:outputText value="LISTA DE PARCELAS" style="color: red"/></h4>
+                        </f:facet>
+                    </p:toolbar>
+
+                    <!-- <p:separator/>-->
+                    <p:dataTable id="tbParcelas" emptyMessage="Nenhum registro encontrado"
+                                 var="parcela" value="#{parcelaBean.listaParcelas}" paginator="true"
+                                 rowStyleClass="#{parcela.situacao.nome == 'PAGO'? 'pago':
+                                                  parcela.situacao.nome == 'EM ABERTO'? 'aberta': null}">
+
+
+                        <p:column headerText="Data Vencimento" filterBy="#{parcela.data}" sortBy="#{parcela.data}"
+                                  style="width: 10%; text-align: center">
+                            <h:outputText value="#{parcela.dataFormatada}"/>
+                        </p:column>
+                       <!-- <p:column headerText="Cartão" style="width: 13%">
+                            <h:outputText value="#{parcela.divida.cartao.nome}"/>
+                        </p:column> -->
+
+                        <p:column headerText="Parcela" style="width: 7%; text-align: center">
+                            <h:outputText value="#{parcela.numero}/#{parcela.divida.quantParcela}"/>
+                        </p:column>
+
+                        <p:column headerText="Valor" style="width: 8%">
+                            <h:outputText value="#{parcela.valor}"/>
+                        </p:column>
+
+                        <p:column headerText="Local" style="width: 15%" filterMatchMode="contains"
+                                  sortBy="#{parcela.divida.local}" filterBy="#{parcela.divida.local}">
+                            <h:outputText value="#{parcela.divida.local}"/>
+                        </p:column>
+
+                        <p:column headerText="Descrição" style="width: 18%" sortBy="#{parcela.divida.descricao}"
+                        filterBy="#{parcela.divida.descricao}" filterMatchMode="contains">
+                            <h:outputText value="#{parcela.divida.descricao}"/>
+                        </p:column>
+
+                        <p:column headerText="Devedor" style="width: 9%">
+                            <h:outputText value="#{parcela.divida.pessoa.nome}"/>
+                        </p:column>
+
+                       <!-- <p:column headerText="Situação" style="width: 9%">
+                            <h:outputText styleClass="situacao" value="#{parcela.situacao.nome}"/>
+                        </p:column>-->
+                        <p:column  headerText="Pagar" style="color: red; text-align: center;width: 10%" rendered="#{sessionMB.usuarioLogado.id == 1}">
+                            <p:commandButton id="pagar" value="PAGAR" style="text-align: center" styleClass="btn-primary"
+                                             rendered="#{parcela.situacao.id == 1}"
+                                             update="form" process="@this, tbParcelas, form" action="#{parcelaBean.pagarParcela}">
+                                <f:setPropertyActionListener value="#{parcela}" target="#{parcelaBean.parcela}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                    <!--<p:separator/>-->
+                    <div class="card card-w-title">
+                        <p:toolbar>
+                            <f:facet name="left">
+                                <h2><h:outputText id="valorTotal" styleClass="valorVermelho" style="color: red"
+                                                  value="Valor Total: #{parcelaBean.valorTotalParcelas}"/></h2>
+                            </f:facet>
+                        </p:toolbar>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
