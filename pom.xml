@@ -84,11 +84,6 @@
             <groupId>org.joinfaces</groupId>
             <artifactId>adminfaces-spring-boot-starter</artifactId>
         </dependency>
-       <!-- <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>-->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -127,38 +122,6 @@
             <artifactId>cdi-api</artifactId>
             <version>2.0</version>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.4.0.Final</version>
-        </dependency>-->
-
-       <!-- <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.4.0.Final</version>
-        </dependency>-->
-       <!-- <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.0.13.Final</version>
-        </dependency>-->
-       <!-- <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.faces</artifactId>
-            <version>2.4.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.omnifaces</groupId>
-            <artifactId>omnifaces</artifactId>
-            <version>3.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.weld.servlet</groupId>
-            <artifactId>weld-servlet-core</artifactId>
-            <version>3.1.2.Final</version>
-        </dependency>-->
     </dependencies>
     <build>
         <finalName>financas</finalName>
@@ -181,11 +144,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.heroku.sdk</groupId>
-                <artifactId>heroku-maven-plugin</artifactId>
-                <version>2.0.8</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
