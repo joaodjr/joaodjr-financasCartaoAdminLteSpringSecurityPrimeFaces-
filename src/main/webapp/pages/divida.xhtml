@@ -145,7 +145,8 @@
                                  var="divida" rows="5" paginator="true" rowsPerPageTemplate="5,10,15,20" >
 
 
-                        <p:column headerText="Data Compra">
+                        <p:column headerText="Data Compra" filterBy="#{divida.dataFormatada}" sortBy="#{divida.dataFormatada}"
+                                  filterMatchMode="contains">
                             <h:outputText value="#{divida.dataFormatada}"/>
                         </p:column>
 

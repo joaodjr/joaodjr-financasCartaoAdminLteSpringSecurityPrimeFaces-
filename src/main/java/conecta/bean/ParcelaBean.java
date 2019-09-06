@@ -17,6 +17,7 @@ import conecta.util.FacesUtil;
 import conecta.util.Utils;
 import org.omnifaces.util.Faces;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -31,7 +32,7 @@ import java.util.List;
 //import org.omnifaces.cdi.ViewScoped;
 
 @Named("parcelaBean")
-@ViewScoped
+@Scope("view")
 public class ParcelaBean implements Serializable {
     private static final long serialVersionUID = 1L;
     @Autowired

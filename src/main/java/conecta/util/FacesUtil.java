@@ -16,13 +16,13 @@ import java.util.Map;
  */
 public class FacesUtil {
 	public static void addMsgInfo(String mensagem) {
-		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, mensagem);
+		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, null);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		facesContext.addMessage(null, facesMessage);
 	}
 	
 	public static void addMsgError(String mensagem) {
-		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem, mensagem);
+		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem, null);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		facesContext.addMessage(null, facesMessage);
 	}

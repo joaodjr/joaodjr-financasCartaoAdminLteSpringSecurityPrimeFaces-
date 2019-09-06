@@ -8,6 +8,8 @@ import javax.inject.Named;
 import conecta.model.Usuario;
 
 import lombok.Getter;
+
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -15,7 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 @Getter
 @Named
-@SessionScoped
+@Scope("session")
 public class SessionMB implements Serializable {
 
 	private String currentUser;

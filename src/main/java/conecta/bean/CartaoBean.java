@@ -9,6 +9,7 @@ import conecta.Repository.CartaoRepository;
 import conecta.model.Cartao;
 import conecta.util.FacesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author joao
  */
 @Named("cartaoBean")
-@ViewScoped
+@Scope("view")
 public class CartaoBean implements Serializable {
     private static final long serialVersionUID = 1L;
 

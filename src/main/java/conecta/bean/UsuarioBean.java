@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@ViewScoped
+@Scope("view")
 @Named("usuarioBean")
 public class UsuarioBean implements Serializable {
     private static final long serialVersionUID = 1L;

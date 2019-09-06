@@ -6,6 +6,7 @@ import conecta.model.Pessoa;
 import conecta.util.FacesUtil;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Data
 @Named("pessoaBean")
-@ViewScoped
+@Scope("view")
 public class PessoaBean implements Serializable {
     private static final long serialVersionUID = 1L;
 

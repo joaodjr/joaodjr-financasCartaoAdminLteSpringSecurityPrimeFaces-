@@ -55,9 +55,9 @@ public class Divida implements Serializable, AbstractEntity {
     @JoinColumn(name = "fk_cod_cartao", nullable = false)
     private Cartao cartao;
 
-   /* @OneToMany(mappedBy ="divida", orphanRemoval = true)
+   @OneToMany(mappedBy ="divida", orphanRemoval = true)
     List<Parcela> parcelas = new ArrayList<>();
-*/
+
 
     public String getDataFormatada() {
         SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");

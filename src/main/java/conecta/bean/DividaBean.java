@@ -12,9 +12,10 @@ import conecta.util.FacesUtil;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -25,7 +26,7 @@ import java.util.*;
 //import org.omnifaces.cdi.ViewScoped;
 
 @Named("dividaBean")
-@ViewScoped
+@Scope("view")
 public class DividaBean implements Serializable {
     private static final long serialVersionUID = 1L;
     @Autowired
@@ -36,8 +37,9 @@ public class DividaBean implements Serializable {
     private DividaRepository dividaRepository;
     @Autowired
     private DividaSalvaRepository dividaSalvaRepository;
-    @Autowired
-    private ParcelaSalvarRepository parcelaRepository;
+	/*
+	 * @Autowired private ParcelaSalvarRepository parcelaRepository;
+	 */
 
     private List<Parcela> listaParcelas;
     private List<Divida> listaDividas;
@@ -48,7 +50,7 @@ public class DividaBean implements Serializable {
     private Pessoa pessoa;
    // @Inject
     private Cartao cartao;
-   // @Inject
+    //@Inject
     private Divida divida;
    // @Inject
     private Parcela parcela;
@@ -91,6 +93,7 @@ public class DividaBean implements Serializable {
         return dia;
     }
 
+    @Transactional(readOnly = false)
     public void salvar() {
         if (this.divida.getCartao().getDiaVencimento() != this.diaVencimento(this.divida.getDataInicioPagamento())) {
             FacesUtil.addMsgError("O dia do mês de vencimento desse cartão é " + this.divida.getCartao().getDiaVencimento());
@@ -100,15 +103,16 @@ public class DividaBean implements Serializable {
                 Integer numPar = this.divida.getQuantParcela();
                 int cont = 1;
                 Date dataVencimento = divida.getDataInicioPagamento();
-               // divida.setParcelas(new ArrayList<>());
+                divida.setParcelas(new ArrayList<>());
                 List<Parcela> listaParcelas = new ArrayList<>();
 
                // divida.setParcelas(listaParcelas);
-                divida.setLocal(divida.getLocal().toUpperCase());
-                divida.setDescricao(divida.getDescricao().toUpperCase());
-                divida.setDataCadastro(new Date());
-                divida.setId((Long)null);
-                divida = dividaSalvaRepository.save(divida);
+				/*
+				 * divida.setLocal(divida.getLocal().toUpperCase());
+				 * divida.setDescricao(divida.getDescricao().toUpperCase());
+				 * divida.setDataCadastro(new Date()); divida.setId((Long)null); divida =
+				 * dividaSalvaRepository.save(divida);
+				 */
 
                 while(cont <= numPar) {
                     parcela = new Parcela();
@@ -119,19 +123,17 @@ public class DividaBean implements Serializable {
                     parcela.getSituacao().setId(SituacaoEnum.EM_ABERTO.getValue());
                     parcela.setDivida(divida);
                     listaParcelas.add(parcela);
-                    System.out.println(parcela.getValor());
-                    System.out.println(parcela.getData());
                     dataVencimento = calcularData(dataVencimento);
                     ++cont;
                 }
 
-                parcelaRepository.saveAll(listaParcelas);
-               /* divida.setParcelas(listaParcelas);
+               // parcelaRepository.saveAll(listaParcelas);
+                divida.setParcelas(listaParcelas);
                 divida.setLocal(divida.getLocal().toUpperCase());
                 divida.setDescricao(divida.getDescricao().toUpperCase());
                 divida.setDataCadastro(new Date());
-                divida.setId((Long)null);
-                dividaSalvaRepository.save(divida);*/
+                divida.setId(null);
+                dividaSalvaRepository.save(divida);
                 divida = new Divida();
                 cartao = new Cartao();
                 pessoa = new Pessoa();
