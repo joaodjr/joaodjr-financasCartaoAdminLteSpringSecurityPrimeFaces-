@@ -4,13 +4,15 @@ import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @Getter
@@ -55,9 +57,12 @@ public class Divida implements Serializable, AbstractEntity {
     @JoinColumn(name = "fk_cod_cartao", nullable = false)
     private Cartao cartao;
 
-   @OneToMany(mappedBy ="divida", orphanRemoval = true)
-    List<Parcela> parcelas = new ArrayList<>();
-
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @OneToMany(mappedBy ="divida",cascade = CascadeType.ALL, orphanRemoval =
+	 * true) List<Parcela> parcelas = new ArrayList<>();
+	 */
 
     public String getDataFormatada() {
         SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");

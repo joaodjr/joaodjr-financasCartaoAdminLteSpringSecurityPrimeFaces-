@@ -14,4 +14,5 @@ import java.util.List;
 public interface ParcelaRepository {
     List<Parcela> buscarParcelas(Situacao situacao, Date dataInicio, Date dataFim, Pessoa pessoa, Cartao cartao) throws ParseException;
     void salvar(Parcela parcela);
+    void delete(Long idDivida);
 }

@@ -3,103 +3,130 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    template="/WEB-INF/templates/template.xhtml">
-    
-     <ui:define name="body">
-         <style type="text/css">
-             .desativada{
-                 background-color: red;
-                 color: white;
-             }
-             .ui-datatable-header{
-                 background-color: blue;
-                 color: white;
-             }
-         </style>
-       <!--  <p:growl id="mensagens" autoUpdate="true"/>-->
-         
-         <h:form id="form">
-             <p:toolbar>
-                 <f:facet name="left">
-                     <h:outputText value="Cartões"/>
-                 </f:facet>
-             </p:toolbar>
-             <h:panelGroup id="cadastro" styleClass="ui-panelgrid-blank lesspad" rendered="#{cartaoBean.novo}">
-                 <p:panelGrid columns="5" layout="grid" columnClasses="ui-grid-col-2,ui-grid-col-2, ui-grid-col-2,ui-grid-col-2,ui-grid-col-2 " >
-                     <p:column>
-                         <p:outputLabel for="nome" value="Nome"/>
-                         <p:inputText id="nome" value="#{cartaoBean.cartao.nome}" required="true"
-                                      requiredMessage="* O nome é obrigatório"/>
-                     </p:column>
-                     <p:column>
-                         <p:outputLabel for="banco" value="Banco"/>
-                         <p:inputText id="banco" value="#{cartaoBean.cartao.banco}"
-                                      required="true" requiredMessage="* O banco é obrigatório"/>
-                     </p:column>
-                     <p:column>
-                         <p:outputLabel  for="limite" value="Limite"/>
-                         <p:inputNumber id="limite" value="#{cartaoBean.cartao.limite}"
-                                         required="true" requiredMessage="* O limite é obrigatório"/>
-                     </p:column>
-                     <p:column>
-                         <p:outputLabel for="diaVencimento" value="Dia do Vencimento"/>
-                         <p:inputText id="diaVencimento" value="#{cartaoBean.cartao.diaVencimento}"
-                                     />
-                     </p:column>
-                     <p:column>
-                         <p:outputLabel for="melhorDia" value="Melhor dia Compra"/>
-                         <p:inputText id="melhorDia" value="#{cartaoBean.cartao.melhorDiaCompra}"
-                                   />
-                     </p:column>
-                 </p:panelGrid>
-                 <p:panelGrid columns="8" layout="grid">
-                     <p:commandButton process="@this, form" value="SALVAR" style="width: 120px" styleClass="btn-primary"
-                                      actionListener="#{cartaoBean.salvar}" update="form" icon="fa fa-floppy-o"/>
-                     <p:commandButton value="CANCELAR" style="width: 120px" styleClass="btn-info" update="form, cadastro"
-                                      actionListener="#{cartaoBean.cancela}" process="@this" icon="fa fa-ban"/>
-                 </p:panelGrid>
-             </h:panelGroup>
-          
-             <p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
-             value="#{cartaoBean.listaCartoes}" var="cartao" rows="15" paginator="true" rowStyleClass="#{cartao.ativo == 0? 'desativada':null}">
-                 <f:facet name="header">
-                     <p:commandButton value="Novo" styleClass="btn-primary" process="@this, form" update="form"
-                       icon="fa fa-plus" style="width: 120px" actionListener="#{cartaoBean.novoCadastro}"/>
-                 </f:facet>
-                 <p:column headerText="Nome"  filterBy="#{cartao.nome}" sortBy="#{cartao.nome}"  style="text-align: center">
-                     <h:outputText value="#{cartao.nome}"  /> 
-                 </p:column>
+	template="/WEB-INF/templates/template.xhtml">
 
-                 <p:column headerText="Banco"  style="text-align: center">
-                     <h:outputText value="#{cartao.banco}"/>
-                 </p:column>
-                 <p:column headerText="Limite"  style="text-align: center">
-                     <h:outputText value="#{cartao.limite}"/>
-                 </p:column>
-                 <p:column headerText="Dia Vencimento"  style="text-align: center">
-                     <h:outputText value="#{cartao.diaVencimento}"/>
-                 </p:column>
-                 <p:column headerText="Melhor dia Compra" style="text-align: center">
-                     <h:outputText value="#{cartao.melhorDiaCompra}"/>
-                 </p:column>
-                 <p:column headerText="Opções" width="20%" style="text-align: center">
-                     <p:commandButton icon="fa fa-pencil" styleClass="btn-info" value="EDITAR"
-                                      style="width: 120px;text-align: center" process="@this, tabela" action="#{cartaoBean.novoCadastro}"
-                                      update="form">
-                         <f:setPropertyActionListener value="#{cartao}" target="#{cartaoBean.cartao}"/>
-                     </p:commandButton>
-                     <p:commandButton icon="fa fa-trash" styleClass="btn-danger" value="DESATIVAR" rocess="@this, tabela"
-                                      rendered="#{cartao.ativo == 1}"
-                                      style="width: 120px;text-align: center" update="form" action="#{cartaoBean.desativar}">
-                         <f:setPropertyActionListener value="#{cartao}" target="#{cartaoBean.cartao}"/>
-                     </p:commandButton>
-                     <p:commandButton icon="fa fa-floppy-o" styleClass="btn-primary" value="ATIVAR" rocess="@this, tabela"
-                                      rendered="#{cartao.ativo == 0}"
-                                      style="width: 120px;text-align: center" update="form" action="#{cartaoBean.salvar}">
-                         <f:setPropertyActionListener value="#{cartao}" target="#{cartaoBean.cartao}"/>
-                     </p:commandButton>
-                 </p:column>
-             </p:dataTable> 
-         </h:form>
-     </ui:define>
+	<ui:define name="body">
+		<style type="text/css">
+.desativada {
+	background-color: red;
+	color: white;
+}
+
+.ui-datatable-header {
+	background-color: blue;
+	color: white;
+}
+</style>
+		<div class="card card-w-title">
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<h:form id="form">
+						<p:toolbar>
+							<f:facet name="left">
+								<h:outputText value="Cartões" />
+							</f:facet>
+						</p:toolbar>
+						<h:panelGroup id="cadastro"
+							styleClass="ui-panelgrid-blank lesspad"
+							rendered="#{cartaoBean.novo}">
+							<p:panelGrid columns="5" layout="grid"
+								columnClasses="ui-grid-col-2,ui-grid-col-2, ui-grid-col-2,ui-grid-col-2,ui-grid-col-2 ">
+								<p:column>
+									<p:outputLabel for="nome" value="Nome" />
+									<p:inputText id="nome" value="#{cartaoBean.cartao.nome}"
+										required="true" requiredMessage="* O nome é obrigatório" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="banco" value="Banco" />
+									<p:inputText id="banco" value="#{cartaoBean.cartao.banco}"
+										required="true" requiredMessage="* O banco é obrigatório" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="limite" value="Limite" />
+									<p:inputNumber id="limite" value="#{cartaoBean.cartao.limite}"
+										required="true" requiredMessage="* O limite é obrigatório" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="diaVencimento" value="Dia do Vencimento" />
+									<p:inputText id="diaVencimento"
+										value="#{cartaoBean.cartao.diaVencimento}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="melhorDia" value="Melhor dia Compra" />
+									<p:inputText id="melhorDia"
+										value="#{cartaoBean.cartao.melhorDiaCompra}" />
+								</p:column>
+							</p:panelGrid>
+							<p:panelGrid columns="8" layout="grid">
+								<p:commandButton process="@this, form" value="SALVAR"
+									style="width: 120px" styleClass="btn-primary"
+									actionListener="#{cartaoBean.salvar}" update="form"
+									icon="fa fa-floppy-o" />
+								<p:commandButton value="CANCELAR" style="width: 120px"
+									styleClass="btn-info" update="form, cadastro"
+									actionListener="#{cartaoBean.cancela}" process="@this"
+									icon="fa fa-ban" />
+							</p:panelGrid>
+						</h:panelGroup>
+
+						<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+							value="#{cartaoBean.listaCartoes}" var="cartao" rows="15"
+							paginator="true"
+							rowStyleClass="#{cartao.ativo == 0? 'desativada':null}">
+							<f:facet name="header">
+								<p:commandButton value="Novo" styleClass="btn-primary"
+									process="@this, form" update="form" icon="fa fa-plus"
+									style="width: 120px"
+									actionListener="#{cartaoBean.novoCadastro}" />
+							</f:facet>
+							<p:column headerText="Nome" filterBy="#{cartao.nome}"
+								sortBy="#{cartao.nome}" style="text-align: center">
+								<h:outputText value="#{cartao.nome}" />
+							</p:column>
+
+							<p:column headerText="Banco" style="text-align: center">
+								<h:outputText value="#{cartao.banco}" />
+							</p:column>
+							<p:column headerText="Limite" style="text-align: center">
+								<h:outputText value="#{cartao.limite}" />
+							</p:column>
+							<p:column headerText="Dia Vencimento" style="text-align: center">
+								<h:outputText value="#{cartao.diaVencimento}" />
+							</p:column>
+							<p:column headerText="Melhor dia Compra"
+								style="text-align: center">
+								<h:outputText value="#{cartao.melhorDiaCompra}" />
+							</p:column>
+							<p:column headerText="Opções" width="20%"
+								style="text-align: center">
+								<p:commandButton icon="fa fa-pencil" styleClass="btn-info"
+									value="EDITAR" style="width: 120px;text-align: center"
+									process="@this, tabela" action="#{cartaoBean.novoCadastro}"
+									update="form">
+									<f:setPropertyActionListener value="#{cartao}"
+										target="#{cartaoBean.cartao}" />
+								</p:commandButton>
+								<p:commandButton icon="fa fa-trash" styleClass="btn-danger"
+									value="DESATIVAR" rocess="@this, tabela"
+									rendered="#{cartao.ativo == 1}"
+									style="width: 120px;text-align: center" update="form"
+									action="#{cartaoBean.desativar}">
+									<f:setPropertyActionListener value="#{cartao}"
+										target="#{cartaoBean.cartao}" />
+								</p:commandButton>
+								<p:commandButton icon="fa fa-floppy-o" styleClass="btn-primary"
+									value="ATIVAR" rocess="@this, tabela"
+									rendered="#{cartao.ativo == 0}"
+									style="width: 120px;text-align: center" update="form"
+									action="#{cartaoBean.salvar}">
+									<f:setPropertyActionListener value="#{cartao}"
+										target="#{cartaoBean.cartao}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
 </ui:composition>

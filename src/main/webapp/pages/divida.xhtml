@@ -39,169 +39,188 @@
                 allDayText: 'Todo o Dia'
             };
         </script>
+		<div class="card card-w-title">
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
 
-        <div class="ui-g ui-fluid">
-            <div class="ui-g-12">
-                <h:form id="form">
-                    <div class="card card-w-title">
-                        <p:toolbar>
-                            <f:facet name="left">
-                                <h4><h:outputText value="CADASTRO DE DIVIDAS" style="color: red; size: 36"/></h4>
-                            </f:facet>
-                        </p:toolbar>
+					<h:form id="form">
 
-                        <p:panelGrid columns="4" layout="grid" id="panelCadastro"
-                                     styleClass="ui-panelgrid-blank lesspad">
-                            <p:column>
-                                <p:outputLabel value="Cartão" for="cartao"/>
-                                <p:selectOneMenu id="cartao" required="true" autoWidth="false"
-                                                 requiredMessage="* Escolha um cartão"
-                                                 converter="cartaoConverter"
-                                                 value="#{dividaBean.divida.cartao}">
-                                    <f:selectItem noSelectionOption="true" itemLabel="ESCOLHA UM CARTÃO"/>
-                                    <f:selectItems value="#{dividaBean.listaCartoes}" var="cartao"
-                                                   itemLabel="#{cartao.nome}" itemValue="#{cartao}"/>
-                                </p:selectOneMenu>
-                            </p:column>
+						<p:toolbar>
+							<f:facet name="left">
+								<h4>
+									<h:outputText value="CADASTRO DE DIVIDAS"
+										style="color: red; size: 36" />
+								</h4>
+							</f:facet>
+						</p:toolbar>
 
-                            <p:column>
-                                <p:outputLabel for="data" value="Data da Compra"/>
-                                <p:calendar pattern="dd/MM/yyyy" mask="99/99/9999" id="data" required="true"
-                                            locale="pt"
-                                            requiredMessage="*Campo data é obrigatório"
-                                            value="#{dividaBean.divida.dataCompra}"/>
-                            </p:column>
+						<p:panelGrid columns="4" layout="grid" id="panelCadastro"
+							styleClass="ui-panelgrid-blank lesspad">
+							<p:column>
+								<p:outputLabel value="Cartão" for="cartao" />
+								<p:selectOneMenu id="cartao" required="true" autoWidth="false"
+									requiredMessage="* Escolha um cartão"
+									converter="cartaoConverter" value="#{dividaBean.divida.cartao}">
+									<f:selectItem noSelectionOption="true"
+										itemLabel="ESCOLHA UM CARTÃO" />
+									<f:selectItems value="#{dividaBean.listaCartoes}" var="cartao"
+										itemLabel="#{cartao.nome}" itemValue="#{cartao}" />
+								</p:selectOneMenu>
+							</p:column>
 
-                            <p:column>
-                                <p:outputLabel value="Valor da Compra" for="valorTotal"/>
-                                <p:inputNumber id="valorTotal" required="true"
-                                               requiredMessage="*Campo Valor Total é obrigatório"
-                                               value="#{dividaBean.divida.valorTotal}" decimalSeparator="," thousandSeparator="."/>
-                            </p:column>
+							<p:column>
+								<p:outputLabel for="data" value="Data da Compra" />
+								<p:calendar pattern="dd/MM/yyyy" mask="99/99/9999" id="data"
+									required="true" locale="pt"
+									requiredMessage="*Campo data é obrigatório"
+									value="#{dividaBean.divida.dataCompra}" />
+							</p:column>
 
-                            <p:column>
-                                <p:outputLabel value="Quantidade de Parcelas" for="quantParcela"/>
-                                <p:inputText id="quantParcela" required="true"
-                                             requiredMessage="*Campo Quantidade Parcelas é Obrigatório"
-                                             maxlength="2" value="#{dividaBean.divida.quantParcela}"/>
-                            </p:column>
+							<p:column>
+								<p:outputLabel value="Valor da Compra" for="valorTotal" />
+								<p:inputNumber id="valorTotal" required="true"
+									requiredMessage="*Campo Valor Total é obrigatório"
+									value="#{dividaBean.divida.valorTotal}" decimalSeparator=","
+									thousandSeparator="." />
+							</p:column>
 
-                            <p:column>
-                                <p:outputLabel value="Local da Compra" for="local"/>
-                                <p:inputText id="local" required="true"
-                                             requiredMessage="*Campo Local é Obrigatório"
-                                             maxlength="20"
-                                             value="#{dividaBean.divida.local}"/>
-                            </p:column>
+							<p:column>
+								<p:outputLabel value="Quantidade de Parcelas" for="quantParcela" />
+								<p:inputText id="quantParcela" required="true"
+									requiredMessage="*Campo Quantidade Parcelas é Obrigatório"
+									maxlength="2" value="#{dividaBean.divida.quantParcela}" />
+							</p:column>
 
-                            <p:column>
-                                <p:outputLabel value="Descrição" for="descricao"/>
-                                <p:inputText id="descricao" required="true"
-                                             requiredMessage="*O campo Descrição é Obrigatório"
-                                             maxlength="30" value="#{dividaBean.divida.descricao}"/>
-                            </p:column>
+							<p:column>
+								<p:outputLabel value="Local da Compra" for="local" />
+								<p:inputText id="local" required="true"
+									requiredMessage="*Campo Local é Obrigatório" maxlength="20"
+									value="#{dividaBean.divida.local}" />
+							</p:column>
 
-                            <p:column>
-                                <p:outputLabel for="dataInicio" value="Inicio do Pagamento"/>
-                                <p:calendar id="dataInicio" pattern="dd/MM/yyyy" required="true" locale="pt"
-                                            requiredMessage="*Campo Data Inicio é Obrigatório"
-                                            mask="99/99/9999" value="#{dividaBean.divida.dataInicioPagamento}"/>
-                            </p:column>
+							<p:column>
+								<p:outputLabel value="Descrição" for="descricao" />
+								<p:inputText id="descricao" required="true"
+									requiredMessage="*O campo Descrição é Obrigatório"
+									maxlength="30" value="#{dividaBean.divida.descricao}" />
+							</p:column>
 
-                            <p:column>
-                                <p:outputLabel value="Pessoa" for="pessoa"/>
-                                <p:selectOneMenu id="pessoa" autoWidth="false"
-                                                 value="#{dividaBean.divida.pessoa}"
-                                                 required="true" requiredMessage="*Escolha uma Pessoa"
-                                                 converter="pessoaConverter">
-                                    <f:selectItem noSelectionOption="true" itemLabel="ESCOLHA UMA PESSOA"/>
-                                    <f:selectItems value="#{dividaBean.listaPessoas}" var="pessoa"
-                                                   itemValue="#{pessoa}"
-                                                   itemLabel="#{pessoa.nome}"/>
-                                </p:selectOneMenu>
-                            </p:column>
-                        </p:panelGrid>
-                        <p:panelGrid columns="6" layout="grid">
-                            <p:commandButton styleClass="btn-primary" icon="fa fa-floppy-o"
-                                             process="@this, panelCadastro" rendered="#{dividaBean.divida.id  == null}"
-                                             update="form" value="SALVAR" actionListener="#{dividaBean.salvar}"/>
-                            <p:commandButton styleClass="btn-info" value="EDITAR" icon="fa fa-pencil" action="#{dividaBean.editar}"
-                                             update="form" process="@this, panelCadastro" rendered="#{dividaBean.divida.id != null}"/>
-                            <p:commandButton styleClass="btn-warning" value="CANCELAR" update="form"
-                                             process="@this, panelCadastro"
-                                             icon="fa fa-ban" actionListener="#{dividaBean.novo}"/>
-                        </p:panelGrid>
-                    </div>
+							<p:column>
+								<p:outputLabel for="dataInicio" value="Inicio do Pagamento" />
+								<p:calendar id="dataInicio" pattern="dd/MM/yyyy" required="true"
+									locale="pt" requiredMessage="*Campo Data Inicio é Obrigatório"
+									mask="99/99/9999"
+									value="#{dividaBean.divida.dataInicioPagamento}" />
+							</p:column>
 
-                    <!--<p:spacer/>-->
-                    <p:toolbar>
-                        <f:facet name="left">
-                            <h4><h:outputText value="LISTA DE DIVIDAS" style="color: red"/></h4>
-                        </f:facet>
-                    </p:toolbar>
+							<p:column>
+								<p:outputLabel value="Pessoa" for="pessoa" />
+								<p:selectOneMenu id="pessoa" autoWidth="false"
+									value="#{dividaBean.divida.pessoa}" required="true"
+									requiredMessage="*Escolha uma Pessoa"
+									converter="pessoaConverter">
+									<f:selectItem noSelectionOption="true"
+										itemLabel="ESCOLHA UMA PESSOA" />
+									<f:selectItems value="#{dividaBean.listaPessoas}" var="pessoa"
+										itemValue="#{pessoa}" itemLabel="#{pessoa.nome}" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:panelGrid>
+						<p:panelGrid columns="6" layout="grid">
+							<p:commandButton styleClass="btn-primary" icon="fa fa-floppy-o"
+								process="@this, panelCadastro"
+								rendered="#{dividaBean.divida.id  == null}" update="form"
+								value="SALVAR" actionListener="#{dividaBean.salvar}" />
+							<p:commandButton styleClass="btn-info" value="EDITAR"
+								icon="fa fa-pencil" action="#{dividaBean.editar}" update="form"
+								process="@this, panelCadastro"
+								rendered="#{dividaBean.divida.id != null}">
+								<p:confirm header="Preciso do seu aceite!" message="Hum?, realmente quer fazer isso?"/>
+								</p:commandButton>
+							<p:commandButton styleClass="btn-warning" value="CANCELAR"
+								update="form" process="@this, panelCadastro" icon="fa fa-ban"
+								actionListener="#{dividaBean.novo}" />
+						</p:panelGrid>
+						<p:toolbar>
+							<f:facet name="left">
+								<h4>
+									<h:outputText value="LISTA DE DIVIDAS" style="color: red" />
+								</h4>
+							</f:facet>
+						</p:toolbar>
+						<p:dataTable id="tblDividas"
+							emptyMessage="Nenhum registro encontrado"
+							value="#{dividaBean.listaDividaLazy}" lazy="true" reflow="true"
+							var="divida" rows="5" paginator="true"
+							rowsPerPageTemplate="5,10,15,20">
+							<p:column headerText="Data Compra"
+								filterBy="#{divida.dataFormatada}"
+								sortBy="#{divida.dataFormatada}" filterMatchMode="contains">
+								<h:outputText value="#{divida.dataFormatada}" />
+							</p:column>
 
-                    <p:dataTable id="tblDividas" emptyMessage="Nenhum registro encontrado"
-                                 value="#{dividaBean.listaDividaLazy}" lazy="true" reflow="true"
-                                 var="divida" rows="5" paginator="true" rowsPerPageTemplate="5,10,15,20" >
+							<p:column headerText="Cartão" filterBy="#{divida.cartao.nome}"
+								filterMatchMode="contains" sortBy="#{divida.cartao.nome}">
+								<h:outputText value="#{divida.cartao.nome}" />
+							</p:column>
 
+							<p:column headerText="1ª Parcela">
+								<h:outputText value="#{divida.dataInicioFormatada}" />
+							</p:column>
 
-                        <p:column headerText="Data Compra" filterBy="#{divida.dataFormatada}" sortBy="#{divida.dataFormatada}"
-                                  filterMatchMode="contains">
-                            <h:outputText value="#{divida.dataFormatada}"/>
-                        </p:column>
+							<p:column headerText="Valor">
+								<h:outputText value="#{divida.valorTotal}" />
+							</p:column>
 
-                        <p:column headerText="Cartão" filterBy="#{divida.cartao.nome}"
-                                  filterMatchMode="contains" sortBy="#{divida.cartao.nome}">
-                            <h:outputText value="#{divida.cartao.nome}"/>
-                        </p:column>
+							<p:column headerText="Quant Parcela">
+								<h:outputText value="#{divida.quantParcela}" />
+							</p:column>
 
-                        <p:column headerText="1ª Parcela" >
-                            <h:outputText value="#{divida.dataInicioFormatada}"/>
-                        </p:column>
+							<p:column headerText="Local" filterBy="#{divida.local}"
+								filterMatchMode="contains">
+								<h:outputText value="#{divida.local}" />
+							</p:column>
 
-                        <p:column headerText="Valor" >
-                            <h:outputText value="#{divida.valorTotal}"/>
-                        </p:column>
+							<p:column headerText="Descricao" filterBy="#{divida.descricao}"
+								filterMatchMode="contains">
+								<h:outputText value="#{divida.descricao}" />
+							</p:column>
+							<p:column headerText="Pessoa" filterBy="#{divida.pessoa.nome}"
+								filterMatchMode="contains" sortBy="#{divida.pessoa.nome}">
+								<h:outputText value="#{divida.pessoa.nome}" />
+							</p:column>
 
-                        <p:column headerText="Quant Parcela" >
-                            <h:outputText value="#{divida.quantParcela}"/>
-                        </p:column>
-
-                        <p:column headerText="Local" filterBy="#{divida.local}"
-                                  filterMatchMode="contains">
-                            <h:outputText value="#{divida.local}"/>
-                        </p:column>
-
-                        <p:column headerText="Descricao" filterBy="#{divida.descricao}"
-                                  filterMatchMode="contains">
-                            <h:outputText value="#{divida.descricao}"/>
-                        </p:column>
-
-
-                        <p:column headerText="Pessoa"
-                                  filterBy="#{divida.pessoa.nome}" filterMatchMode="contains" sortBy="#{divida.pessoa.nome}">
-                            <h:outputText value="#{divida.pessoa.nome}"/>
-                        </p:column>
-
-                        <p:column headerText="Opcões" exportable="false" style="text-align: center">
-                            <p:commandButton value="EDITAR" process="@this"  update="form"
-                                             icon="fa fa-pencil" styleClass="btn-info">
-                                <f:setPropertyActionListener value="#{divida}" target="#{dividaBean.divida}"/>
-                            </p:commandButton>
-
-                            <p:commandButton value="EXCLUIR" action="#{dividaBean.excluir}" icon="fa fa-trash"
-                                              styleClass="btn-danger" process="@this" update="form">
-                                <f:setPropertyActionListener value="#{divida}" target="#{dividaBean.divida}"/>
-                            </p:commandButton>
-                        </p:column>
-                        <f:facet name="footer">
+							<p:column headerText="Opcões" exportable="false"
+								style="text-align: center">
+								<p:commandButton value="EDITAR" process="@this" update="form"
+									icon="fa fa-pencil" styleClass="btn-info">
+									<f:setPropertyActionListener value="#{divida}"
+										target="#{dividaBean.divida}" />
+								</p:commandButton>
+                               
+								<p:commandButton value="EXCLUIR" action="#{dividaBean.excluir}"
+									icon="fa fa-trash" styleClass="btn-danger" process="@this"
+									update="tblDividas">
+									<f:setPropertyActionListener value="#{divida}"
+										target="#{dividaBean.divida}" />
+										<p:confirm header="Hum, Me Confirme!" message="Realmente deseja excluir a divida?"/>
+								</p:commandButton>
+							</p:column>
+							<f:facet name="footer">
                         Total de dividas encontradas: #{dividaBean.listaDividaLazy.rowCount}
                         </f:facet>
-                    </p:dataTable>
-
-                    <!-- </div>-->
-                </h:form>
-            </div>
-        </div>
-    </ui:define>
+						</p:dataTable>
+						
+					</h:form>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+						width="250">
+						<p:commandButton value="Sim" type="button"
+							styleClass="btn-primary" icon="fa fa-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no secondary-btn" icon="fa fa-close" />
+					</p:confirmDialog>
+				</div>
+			</div>
+		</div>
+	</ui:define>
 </ui:composition>

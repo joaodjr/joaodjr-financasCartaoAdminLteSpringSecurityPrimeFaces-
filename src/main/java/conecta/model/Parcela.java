@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 
 @Data
 @Entity
@@ -16,24 +15,24 @@ public class Parcela implements Serializable, AbstractEntity {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cod_parcela")
+    @Column(name = "cod_parcela", updatable = false)
     private Long id;
 
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private Date data;
 
-    @Column(nullable = false, length = 2)
+    @Column(nullable = false, length = 2, updatable = false)
     private Integer numero;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 10, scale = 2, updatable = false)
     private BigDecimal valor;
 
     @Column(name = "valor_pago", precision = 10, scale = 2)
     private BigDecimal valorPago;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_cod_situacao", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_cod_situacao")
     private Situacao situacao;
 
     @ManyToOne

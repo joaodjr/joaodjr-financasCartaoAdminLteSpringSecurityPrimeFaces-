@@ -25,7 +25,7 @@ public class Filter<T extends Serializable> {
         this.entity = entity;
     }
 
-    public Filter setFirst(int first) {
+    public Filter<T> setFirst(int first) {
         this.first = first;
         return this;
     }
@@ -34,7 +34,7 @@ public class Filter<T extends Serializable> {
         return first;
     }
 
-    public Filter setPageSize(int pageSize) {
+    public Filter<T> setPageSize(int pageSize) {
         this.pageSize = pageSize;
         return this;
     }

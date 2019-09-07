@@ -9,7 +9,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 @FacesConverter("cartaoConverter")
-public class CartaoConverter implements Converter {
+public class CartaoConverter implements Converter<Object> {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {

@@ -6,9 +6,9 @@ import com.uaihebert.uaicriteria.UaiCriteriaFactory;
 import conecta.Repository.DividaRepository;
 import conecta.model.Divida;
 import org.primefaces.model.SortOrder;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 
-@SuppressWarnings("ALL")
-@Named
+@Repository
+@Transactional(readOnly = true)
 public class DividaRepositoryImpl implements DividaRepository {
 
     @PersistenceContext
@@ -81,17 +81,13 @@ public class DividaRepositoryImpl implements DividaRepository {
         return query.getResultList();
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void salvar(Divida divida) {
-       // if (divida.getId() != null){
-          //  manager.merge(divida);
-       // }else{
             manager.persist(divida);
-       // }
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     @Override
     public void excluir(Divida divida) {
         if(divida.getId() != null) {

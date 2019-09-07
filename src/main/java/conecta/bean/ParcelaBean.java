@@ -5,7 +5,6 @@
 
 package conecta.bean;
 
-import com.github.adminfaces.template.exception.AccessDeniedException;
 import conecta.Repository.CartaoRepository;
 import conecta.Repository.ParcelaRepository;
 import conecta.Repository.PessoaRepository;
@@ -14,13 +13,9 @@ import conecta.enums.SituacaoEnum;
 import conecta.model.*;
 import conecta.security.UsuarioLogado;
 import conecta.util.FacesUtil;
-import conecta.util.Utils;
-import org.omnifaces.util.Faces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -28,8 +23,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-//import org.omnifaces.cdi.ViewScoped;
 
 @Named("parcelaBean")
 @Scope("view")
@@ -102,14 +95,7 @@ public class ParcelaBean implements Serializable {
 
     }
 
-    public void pagarParcela() throws ParseException {
-       /* if (!Utils.isUserInRole("ROLE_ADMIN")) {
-            FacesUtil.addMsgError("Você não tem autorização para isso!");
-          //  throw new AccessDeniedException("Você não tem autorização para isso!");
-        }
-        if (Faces.isAjaxRequest()) {
-            return;
-        }*/
+    public void pagarParcela() throws ParseException {      
         if (this.parcela != null) {
             this.parcela.setSituacao(new Situacao());
             this.parcela.getSituacao().setId(SituacaoEnum.PAGO.getValue());
@@ -197,7 +183,7 @@ public class ParcelaBean implements Serializable {
 
     public List<Situacao> getListaSituacao() {
         if (this.listaSituacao == null) {
-            this.listaSituacao = new ArrayList();
+            this.listaSituacao = new ArrayList<Situacao>();
         }
 
         return this.listaSituacao;

@@ -8,9 +8,10 @@ import conecta.model.Cartao;
 import conecta.model.Parcela;
 import conecta.model.Pessoa;
 import conecta.model.Situacao;
+
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.text.ParseException;
@@ -18,8 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@SuppressWarnings("ALL")
-@Named
+@Repository
 public class ParcelaRepositoryImpl implements ParcelaRepository {
 
     @PersistenceContext
@@ -72,5 +72,15 @@ public class ParcelaRepositoryImpl implements ParcelaRepository {
         }
       //  manager.getTransaction().commit();
     }
+
+
+	@Override
+	public void delete(Long idDivida) {
+	  StringBuilder sql = new StringBuilder();
+	    sql.append("DELETE FROM parcela p WHERE p.fk_cod_divida = ");
+	    sql.append(idDivida);
+	    manager.createNativeQuery(sql.toString(), Parcela.class).executeUpdate();
+		
+	}
 }
 
