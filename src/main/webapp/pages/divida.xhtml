@@ -135,7 +135,8 @@
 								icon="fa fa-pencil" action="#{dividaBean.editar}" update="form"
 								process="@this, panelCadastro"
 								rendered="#{dividaBean.divida.id != null}">
-								<p:confirm header="Preciso do seu aceite!" message="Hum?, realmente quer fazer isso?"/>
+								<p:confirm header="Preciso do seu aceite!" message="Hum?, realmente quer fazer isso?" 
+								icon="fa fa-warning"/>
 								</p:commandButton>
 							<p:commandButton styleClass="btn-warning" value="CANCELAR"
 								update="form" process="@this, panelCadastro" icon="fa fa-ban"
@@ -203,24 +204,22 @@
 									update="tblDividas">
 									<f:setPropertyActionListener value="#{divida}"
 										target="#{dividaBean.divida}" />
-										<p:confirm header="Hum, Me Confirme!" message="Realmente deseja excluir a divida?"/>
+									<p:confirm header="Hum, Me Confirme!" icon="fa fa-warning"
+										 message="Realmente deseja excluir a divida?"/>
 								</p:commandButton>
 							</p:column>
 							<f:facet name="footer">
                         Total de dividas encontradas: #{dividaBean.listaDividaLazy.rowCount}
                         </f:facet>
 						</p:dataTable>
-						
 					</h:form>
-					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
-						width="250">
-						<p:commandButton value="Sim" type="button"
-							styleClass="btn-primary" icon="fa fa-check" />
-						<p:commandButton value="Não" type="button"
-							styleClass="ui-confirmdialog-no secondary-btn" icon="fa fa-close" />
-					</p:confirmDialog>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" width="250">
+			           <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes btn-primary" icon="fa fa-check" />
+			           <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no btn-warning" icon="fa fa-close" />
+		            </p:confirmDialog>
 				</div>
 			</div>
 		</div>
+		
 	</ui:define>
 </ui:composition>

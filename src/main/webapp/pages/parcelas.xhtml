@@ -186,13 +186,7 @@
 							</p:commandButton>
 						</p:column>
 					</p:dataTable>
-						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
-						width="250">
-						<p:commandButton value="Sim" type="button"
-							styleClass="btn-primary" icon="fa fa-check" />
-						<p:commandButton value="Não" type="button"
-							styleClass="ui-confirmdialog-no secondary-btn" icon="fa fa-close" />
-					</p:confirmDialog>
+						
 					<div class="card card-w-title">
 						<p:toolbar>
 							<f:facet name="left">
@@ -207,5 +201,12 @@
 				</div>
 			</div>
 		</div>
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+						width="250">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes btn-primary" icon="fa fa-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no btn-warning" icon="fa fa-close" />
+					</p:confirmDialog>
 	</ui:define>
 </ui:composition>
