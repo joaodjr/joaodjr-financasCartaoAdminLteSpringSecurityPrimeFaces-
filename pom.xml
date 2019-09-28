@@ -43,13 +43,13 @@
                 <groupId>com.github.adminfaces</groupId>
                 <artifactId>admin-template</artifactId>
                 <version>1.0.0-RC21</version>
-                <scope>import</scope>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.github.adminfaces</groupId>
                 <artifactId>admin-theme</artifactId>
                 <version>1.0.0-RC21</version>
-                <scope>import</scope>
+                <scope>provided</scope>
             </dependency>
         </dependencies>    
     </dependencyManagement>  
