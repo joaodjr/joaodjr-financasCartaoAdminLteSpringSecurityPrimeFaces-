@@ -1,0 +1,89 @@
+package conecta.validator;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
+import java.util.InputMismatchException;
+
+
+@FacesValidator(value = "cpfValidator")
+public class CpfValidator implements Validator {
+
+    public CpfValidator() {
+    }
+
+    @Override
+    public void validate(FacesContext context, UIComponent componente, Object value)
+            throws ValidatorException {
+
+        if (value == null)
+            return;
+
+        if (!isCPF(value.toString())) {
+            FacesMessage msg = new FacesMessage("* CPF inválido.");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(msg);
+        }
+
+    }
+
+    public Boolean isCPF(String CPF) {
+        char dig10, dig11;
+        int sm, i, r, num, peso;
+
+        if (CPF.equals("00000000000") || CPF.equals("11111111111")
+                || CPF.equals("22222222222") || CPF.equals("33333333333")
+                || CPF.equals("44444444444") || CPF.equals("55555555555")
+                || CPF.equals("66666666666") || CPF.equals("77777777777")
+                || CPF.equals("88888888888") || CPF.equals("99999999999")
+                || (CPF.length() != 11)) {
+            return Boolean.FALSE;
+        }
+
+        try {
+            sm = 0;
+            peso = 10;
+            for (i = 0; i < 9; i++) {
+                num = CPF.charAt(i) - 48;
+                sm = sm + (num * peso);
+                peso = peso - 1;
+            }
+
+            r = 11 - (sm % 11);
+            if ((r == 10) || (r == 11)) {
+                dig10 = '0';
+            } else {
+                dig10 = (char) (r + 48);
+            }
+            sm = 0;
+            peso = 11;
+            for (i = 0; i < 10; i++) {
+                num = CPF.charAt(i) - 48;
+                sm = sm + (num * peso);
+                peso = peso - 1;
+            }
+
+            r = 11 - (sm % 11);
+            if ((r == 10) || (r == 11)) {
+                dig11 = '0';
+            } else {
+                dig11 = (char) (r + 48);
+            }
+            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
+                return Boolean.TRUE;
+            } else {
+                return Boolean.FALSE;
+            }
+        } catch (InputMismatchException inputMismatchException) {
+            return Boolean.FALSE;
+        }
+    }
+
+    public String showCPF(String CPF) {
+        return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
+                + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
+    }
+}

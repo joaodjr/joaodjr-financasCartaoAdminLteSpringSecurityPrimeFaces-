@@ -1,4 +1,4 @@
-package conecta.infra.converter;
+package conecta.converter;
 
 
 import javax.faces.component.UIComponent;

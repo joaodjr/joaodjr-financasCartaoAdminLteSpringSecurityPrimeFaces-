@@ -1,4 +1,4 @@
-package conecta.infra.model;
+package conecta.util;
 
 
 import java.io.Serializable;

@@ -177,7 +177,7 @@
 							rendered="#{sessionMB.usuarioLogado.id == 1}">
 							<p:commandButton id="pagar" value="PAGAR"
 								style="text-align: center" styleClass="btn-primary"
-								rendered="#{parcela.situacao.id == 1}" update="form"
+								rendered="#{parcela.situacao.id == 1}" update="form tbParcelas"
 								process="@this, tbParcelas, form"
 								action="#{parcelaBean.pagarParcela}">
 								<f:setPropertyActionListener value="#{parcela}"

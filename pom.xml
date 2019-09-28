@@ -43,13 +43,13 @@
                 <groupId>com.github.adminfaces</groupId>
                 <artifactId>admin-template</artifactId>
                 <version>1.0.0-RC21</version>
-                <scope>compile</scope>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>com.github.adminfaces</groupId>
                 <artifactId>admin-theme</artifactId>
                 <version>1.0.0-RC21</version>
-                <scope>compile</scope>
+                <scope>import</scope>
             </dependency>
         </dependencies>    
     </dependencyManagement>  
@@ -59,10 +59,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-rest</artifactId>
-        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -76,10 +72,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-        </dependency>    -->
+        </dependency>
         <dependency>
             <groupId>org.joinfaces</groupId>
             <artifactId>adminfaces-spring-boot-starter</artifactId>

@@ -18,10 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @FacesConverter("dateConverter")
-public class DateConverter implements Converter {
+public class DateConverter implements Converter<Object> {
 	private DateFormat formata = new SimpleDateFormat("dd/MM/yyyy");	
 	///Converte o objeto da jspx para gravar no banco de dados.
-	public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Date data = new Date(); 
 		//pegar o label do componente
 		String label = null;
@@ -35,9 +35,9 @@ public class DateConverter implements Converter {
 			//isto força o formatador a lançar uma exception se a data for inválida
 			formata.setLenient(false);
 			data = formata.parse(value);
-		}catch (ParseException e) { 			
+		}catch (ParseException e) { 
 			throw new ConverterException("Data invalida");
-		}catch (Exception e){			
+		}catch (Exception e){	
 			throw new ConverterException("Data invalida");
 		}
 		return data;  

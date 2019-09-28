@@ -31,7 +31,8 @@ public class ParcelaRepositoryImpl implements ParcelaRepository {
         query.innerJoin("divida");
       //
         //  query.innerJoin("pessoa");
-        if (situacao != null) {
+        if (situacao != null && situacao.getId() != null) {
+            System.out.println("situacao: "+situacao);
             query.andEquals("situacao", situacao);
         }
         if (dataInicio != null && dataFim != null) {

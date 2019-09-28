@@ -1,4 +1,4 @@
-package conecta.infra.model;
+package conecta.util;
 
 /**
  * Created by rmpestano on 10/31/14.

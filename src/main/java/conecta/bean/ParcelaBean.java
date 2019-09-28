@@ -52,6 +52,7 @@ public class ParcelaBean implements Serializable {
 
     @PostConstruct
     public void init() {
+
         Usuario usuario= new UsuarioLogado().usuarioLogado();
         if(usuario.getPerfilUsuario().getId() == 1){
             listaPessoas  = pessoaRepository.findPessoaByAtiva();
