@@ -5,10 +5,13 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+
+import conecta.Repository.UsuarioRepository;
 import conecta.model.Usuario;
 
 import lombok.Getter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,12 +23,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Scope("session")
 public class SessionMB implements Serializable {
 
+	@Autowired
+	private UsuarioLogadoService usuarioLogadoService;
+
 	private String currentUser;
 	private  Usuario usuarioLogado;
 
 	@PostConstruct
 	public void init() {
-       usuarioLogado = new UsuarioLogado().usuarioLogado();
+       usuarioLogado = usuarioLogadoService.usuarioLogado();
 
 	}
 

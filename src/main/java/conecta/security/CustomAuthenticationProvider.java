@@ -40,7 +40,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			}
 			grantedAuths.add(new SimpleGrantedAuthority(usuario.getPerfilUsuario().getNome()));
 
-            UsuarioLogado.guardarUsuario(usuario);
+          //  UsuarioLogado.guardarUsuario(usuario);
 		}
 		
 		if (grantedAuths.size() > 0) {

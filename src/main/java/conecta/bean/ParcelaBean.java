@@ -11,7 +11,7 @@ import conecta.Repository.PessoaRepository;
 import conecta.Repository.SituacaoRepository;
 import conecta.enums.SituacaoEnum;
 import conecta.model.*;
-import conecta.security.UsuarioLogado;
+import conecta.security.UsuarioLogadoService;
 import conecta.util.FacesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -36,6 +36,9 @@ public class ParcelaBean implements Serializable {
     private SituacaoRepository situacaoRepository;
     @Autowired
     private ParcelaRepository parcelaRepository;
+    @Autowired
+    private UsuarioLogadoService usuarioLogadoService;
+
     private Situacao situacao;
     private Pessoa pessoa;
     private Parcela parcela;
@@ -53,7 +56,7 @@ public class ParcelaBean implements Serializable {
     @PostConstruct
     public void init() {
 
-        Usuario usuario= new UsuarioLogado().usuarioLogado();
+        Usuario usuario= usuarioLogadoService.usuarioLogado();
         if(usuario.getPerfilUsuario().getId() == 1){
             listaPessoas  = pessoaRepository.findPessoaByAtiva();
             listaCartoes  = cartaoRepository.findCartaoByAtivo();
